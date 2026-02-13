@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programador Delphi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:#000;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+canvas{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.phrase{
+    position:absolute;
+    font-size:2rem;
+    opacity:0;
+    text-align:center;
+    animation: flash 1s ease-in-out forwards;
+    z-index:2;
+}
+
+@keyframes flash{
+    0%{opacity:0; transform:scale(0.95);}
+    30%{opacity:1;}
+    100%{opacity:0; transform:scale(1.05);}
+}
+
+.final{
+    position:absolute;
+    opacity:0;
+    text-align:center;
+    animation: finalShow 2s ease forwards;
+    animation-delay:17s;
+    z-index:2;
+}
+
+@keyframes finalShow{
+    to{opacity:1;}
+}
+
+h1{
+    font-size:3.5rem;
+    font-weight:900;
+    color:white;
+    letter-spacing:2px;
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:1.1rem;
+    letter-spacing:4px;
+    color:white;
+    opacity:0.7;
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="phrase" style="animation-delay:0s">"Delphi morreu."</div>
+<div class="phrase" style="animation-delay:1s">"Só legado."</div>
+<div class="phrase" style="animation-delay:2s">"Não é moderno."</div>
+<div class="phrase" style="animation-delay:3s">"Não tem mercado."</div>
+<div class="phrase" style="animation-delay:4s">"Não roda em nuvem.”</div>
+<div class="phrase" style="animation-delay:5s">"Isso ainda existe?"</div>
+<div class="phrase" style="animation-delay:6s">"Não encontro programador Delphi."</div>
+<div class="phrase" style="animation-delay:7s">"Só Sistema Feio."</div>
+<div class="phrase" style="animation-delay:8s">"Coisa Velha"</div>
+<div class="phrase" style="animation-delay:9s">"Ninguém começa projeto novo em Delphi.”</div>
+<div class="phrase" style="animation-delay:10s">"É tecnologia ultrapassada.”</div>
+<div class="phrase" style="animation-delay:11s">"Só empresa velha usa isso.”</div>
+<div class="phrase" style="animation-delay:12s">"Isso não tem futuro.”</div>
+<div class="phrase" style="animation-delay:13s">"Não é moderno.”</div>
+<div class="phrase" style="animation-delay:14s">"Não é escalável.”</div>
+<div class="phrase" style="animation-delay:15s">"Não é web.”</div>
+
+<div class="final">
+    <h1>PROGRAMADOR DELPHI</h1>
+    <div class="subtitle">VOCÊ AINDA NÃO ENTENDEU</div>
+	<div class="subtitle">Em Breve...</div>	
+</div>
+
+<script>
+// 🔥 Partículas vermelhas sutis
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle{
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = Math.random() * -0.6 - 0.2;
+    }
+    update(){
+        this.y += this.speedY;
+        if(this.y < 0){
+            this.y = canvas.height;
+            this.x = Math.random() * canvas.width;
+        }
+    }
+    draw(){
+        ctx.fillStyle = "rgba(255,0,0,0.3)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    for(let i=0;i<100;i++){
+        particles.push(new Particle());
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener("resize", ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
